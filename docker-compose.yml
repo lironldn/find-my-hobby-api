@@ -1,0 +1,12 @@
+services:
+  find-my-hobby-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: find-my-hobby-api
+    ports:
+      - "5001:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      UseHttpsRedirection: "false"
