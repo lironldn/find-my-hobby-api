@@ -9,7 +9,11 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+var useHttpsRedirection = builder.Configuration.GetValue("UseHttpsRedirection", false);
+if (useHttpsRedirection)
+{
+    app.UseHttpsRedirection();
+}
 
 var hobbies = new[]
 {

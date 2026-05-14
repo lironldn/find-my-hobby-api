@@ -2,10 +2,10 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
-/modules.xml
 /contentModel.xml
-/.idea.FindMyHobby.iml
+/modules.xml
 /projectSettingsUpdater.xml
+/.idea.FindMyHobby.iml
 # Editor-based HTTP Client requests
 /httpRequests/
 # Ignored default folder with query files
