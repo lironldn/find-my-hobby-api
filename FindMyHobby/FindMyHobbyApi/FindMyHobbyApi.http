@@ -1,0 +1,6 @@
+@FindMyHobbyApi_HostAddress = http://localhost:5001
+
+GET {{FindMyHobbyApi_HostAddress}}/hobby/
+Accept: application/json
+
+###
