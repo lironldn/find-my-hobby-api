@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: find-my-hobby-api
+  labels:
+    app: find-my-hobby-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: find-my-hobby-api
+  template:
+    metadata:
+      labels:
+        app: find-my-hobby-api
+    spec:
+      containers:
+        - name: find-my-hobby-api
+          image: find-my-hobby-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ASPNETCORE_URLS
+              value: "http://+:8080"
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
