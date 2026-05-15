@@ -1,0 +1,70 @@
+name: Schedule AKS
+
+on:
+  schedule:
+    # Stop at 18:00 UTC Monday-Friday.
+    # Note: GitHub Actions cron uses UTC.
+    - cron: "0 18 * * 1-5"
+
+    # Ensure the cluster is stopped on Saturday morning.
+    - cron: "0 1 * * 6"
+
+    # Ensure the cluster is stopped on Sunday morning.
+    - cron: "0 1 * * 0"
+
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Action to perform"
+        required: true
+        default: "status"
+        type: choice
+        options:
+          - start
+          - stop
+          - status
+
+jobs:
+  schedule-aks:
+    name: Schedule AKS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Decide action
+        id: decide
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "action=${{ github.event.inputs.action }}" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "action=stop" >> "$GITHUB_OUTPUT"
+
+      - name: Stop AKS
+        if: steps.decide.outputs.action == 'stop'
+        run: |
+          az aks stop \
+            --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
+            --name ${{ secrets.AKS_CLUSTER_NAME }}
+
+      - name: Start AKS
+        if: steps.decide.outputs.action == 'start'
+        run: |
+          az aks start \
+            --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
+            --name ${{ secrets.AKS_CLUSTER_NAME }}
+
+      - name: Show AKS status
+        if: steps.decide.outputs.action == 'status'
+        run: |
+          az aks show \
+            --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
+            --name ${{ secrets.AKS_CLUSTER_NAME }} \
+            --query "{name:name, powerState:powerState.code, provisioningState:provisioningState}" \
+            --output table
