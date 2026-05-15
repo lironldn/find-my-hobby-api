@@ -46,19 +46,51 @@ jobs:
 
           echo "action=stop" >> "$GITHUB_OUTPUT"
 
+      - name: Get AKS status
+        id: aks-status
+        shell: bash
+        run: |
+          POWER_STATE=$(az aks show \
+            --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
+            --name ${{ secrets.AKS_CLUSTER_NAME }} \
+            --query "powerState.code" \
+            --output tsv)
+
+          PROVISIONING_STATE=$(az aks show \
+            --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
+            --name ${{ secrets.AKS_CLUSTER_NAME }} \
+            --query "provisioningState" \
+            --output tsv)
+
+          echo "power_state=$POWER_STATE" >> "$GITHUB_OUTPUT"
+          echo "provisioning_state=$PROVISIONING_STATE" >> "$GITHUB_OUTPUT"
+
+          echo "AKS power state: $POWER_STATE"
+          echo "AKS provisioning state: $PROVISIONING_STATE"
+
       - name: Stop AKS
-        if: steps.decide.outputs.action == 'stop'
+        if: steps.decide.outputs.action == 'stop' && steps.aks-status.outputs.power_state == 'Running'
         run: |
           az aks stop \
             --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
             --name ${{ secrets.AKS_CLUSTER_NAME }}
 
+      - name: Skip stop because AKS is already stopped
+        if: steps.decide.outputs.action == 'stop' && steps.aks-status.outputs.power_state != 'Running'
+        run: |
+          echo "AKS is not running. Current state: ${{ steps.aks-status.outputs.power_state }}. Nothing to stop."
+
       - name: Start AKS
-        if: steps.decide.outputs.action == 'start'
+        if: steps.decide.outputs.action == 'start' && steps.aks-status.outputs.power_state != 'Running'
         run: |
           az aks start \
             --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
             --name ${{ secrets.AKS_CLUSTER_NAME }}
+
+      - name: Skip start because AKS is already running
+        if: steps.decide.outputs.action == 'start' && steps.aks-status.outputs.power_state == 'Running'
+        run: |
+          echo "AKS is already running. Nothing to start."
 
       - name: Show AKS status
         if: steps.decide.outputs.action == 'status'
