@@ -25,6 +25,9 @@
     },
     "nodeCount": {
       "value": 1
+    },
+    "systemNodePoolName": {
+      "value": "nodepool1"
     }
   }
 }

@@ -26,6 +26,9 @@ param nodeVmSize string = 'Standard_D2pls_v6'
 @maxValue(3)
 param nodeCount int = 1
 
+@description('AKS system node pool name. For an existing AKS cluster, this must match the existing system node pool name.')
+param systemNodePoolName string = 'nodepool1'
+
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2024-03-01' = {
   name: resourceGroupName
   location: location
@@ -42,6 +45,7 @@ module aksAcr 'aks-acr.bicep' = {
     kubernetesVersion: kubernetesVersion
     nodeVmSize: nodeVmSize
     nodeCount: nodeCount
+    systemNodePoolName: systemNodePoolName
   }
 }
 

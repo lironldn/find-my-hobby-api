@@ -21,6 +21,9 @@ param nodeVmSize string
 @description('AKS system node count.')
 param nodeCount int
 
+@description('AKS system node pool name. For an existing AKS cluster, this must match the existing system node pool name.')
+param systemNodePoolName string = 'nodepool1'
+
 var acrPullRoleDefinitionId = subscriptionResourceId(
   'Microsoft.Authorization/roleDefinitions',
   '7f951dda-4ed3-4680-a7ca-43fe172d538d'
@@ -51,7 +54,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2024-05-01' = {
 
     agentPoolProfiles: [
       {
-        name: 'systempool'
+        name: systemNodePoolName
         count: nodeCount
         vmSize: nodeVmSize
         osType: 'Linux'
