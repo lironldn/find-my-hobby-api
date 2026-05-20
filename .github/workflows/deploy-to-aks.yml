@@ -9,6 +9,7 @@ on:
 permissions:
   id-token: write
   contents: read
+  checks: write
 
 env:
   IMAGE_NAME: find-my-hobby-api
@@ -115,5 +116,25 @@ jobs:
 
       - name: Run acceptance tests
         run: |
+          echo "Running acceptance tests against: $FIND_MY_HOBBY_API_BASE_URL"
+
           dotnet test FindMyHobbyApi.AcceptanceTests/FindMyHobbyApi.AcceptanceTests.csproj \
-            --configuration Release
+            --configuration Release \
+            --logger "console;verbosity=detailed" \
+            --logger "trx;LogFileName=acceptance-tests.trx" \
+            --results-directory TestResults
+
+      - name: Upload acceptance test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: acceptance-test-results
+          path: TestResults
+
+      - name: Publish acceptance test report
+        if: always()
+        uses: dorny/test-reporter@v2
+        with:
+          name: Acceptance Tests
+          path: TestResults/*.trx
+          reporter: dotnet-trx
