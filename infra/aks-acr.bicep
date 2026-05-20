@@ -1,0 +1,90 @@
+targetScope = 'resourceGroup'
+
+@description('Azure region for all resources.')
+param location string
+
+@description('AKS cluster name.')
+param aksClusterName string
+
+@description('Azure Container Registry name. Must be globally unique, letters and numbers only.')
+param acrName string
+
+@description('AKS DNS prefix.')
+param aksDnsPrefix string
+
+@description('AKS Kubernetes version. Leave empty to use Azure default.')
+param kubernetesVersion string
+
+@description('AKS system node VM size.')
+param nodeVmSize string
+
+@description('AKS system node count.')
+param nodeCount int
+
+var acrPullRoleDefinitionId = subscriptionResourceId(
+  'Microsoft.Authorization/roleDefinitions',
+  '7f951dda-4ed3-4680-a7ca-43fe172d538d'
+)
+
+resource acr 'Microsoft.ContainerRegistry/registries@2023-11-01-preview' = {
+  name: acrName
+  location: location
+  sku: {
+    name: 'Basic'
+  }
+  properties: {
+    adminUserEnabled: false
+    publicNetworkAccess: 'Enabled'
+  }
+}
+
+resource aks 'Microsoft.ContainerService/managedClusters@2024-05-01' = {
+  name: aksClusterName
+  location: location
+  identity: {
+    type: 'SystemAssigned'
+  }
+  properties: {
+    dnsPrefix: aksDnsPrefix
+
+    kubernetesVersion: empty(kubernetesVersion) ? null : kubernetesVersion
+
+    agentPoolProfiles: [
+      {
+        name: 'systempool'
+        count: nodeCount
+        vmSize: nodeVmSize
+        osType: 'Linux'
+        osSKU: 'Ubuntu'
+        mode: 'System'
+        type: 'VirtualMachineScaleSets'
+        enableAutoScaling: false
+      }
+    ]
+
+    networkProfile: {
+      networkPlugin: 'azure'
+      networkPolicy: 'azure'
+      loadBalancerSku: 'standard'
+      outboundType: 'loadBalancer'
+    }
+
+    apiServerAccessProfile: {
+      enablePrivateCluster: false
+    }
+  }
+}
+
+resource acrPullAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(acr.id, aks.id, acrPullRoleDefinitionId)
+  scope: acr
+  properties: {
+    roleDefinitionId: acrPullRoleDefinitionId
+    principalId: aks.identity.principalId
+    principalType: 'ServicePrincipal'
+  }
+}
+
+output acrLoginServer string = acr.properties.loginServer
+output aksClusterName string = aks.name
+output aksKubeletObjectId string = aks.identity.principalId

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "uksouth"
+    },
+    "resourceGroupName": {
+      "value": "find-my-hobby-rg"
+    },
+    "aksClusterName": {
+      "value": "find-my-hobby-aks"
+    },
+    "acrName": {
+      "value": "findmyhobbyregistry"
+    },
+    "aksDnsPrefix": {
+      "value": "find-my-hobby"
+    },
+    "kubernetesVersion": {
+      "value": ""
+    },
+    "nodeVmSize": {
+      "value": "Standard_D2pls_v6"
+    },
+    "nodeCount": {
+      "value": 1
+    }
+  }
+}
