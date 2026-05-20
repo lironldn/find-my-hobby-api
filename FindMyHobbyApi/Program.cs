@@ -32,9 +32,7 @@ app.MapGet("/hobby", () =>
     })
     .WithName("GetHobby");
 
-app.Run();
+app.MapGet("/health", () => Results.Ok(new { status = "Healthy" }))
+    .WithName("Health");
 
-record Hobby(string Name)
-{
-    //public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+app.Run();
