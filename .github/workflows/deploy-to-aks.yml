@@ -86,3 +86,34 @@ jobs:
           kubectl rollout status \
             deployment/${{ env.K8S_DEPLOYMENT_NAME }} \
             --namespace ${{ env.K8S_NAMESPACE }}
+
+      - name: Wait for service external IP
+        shell: bash
+        run: |
+          for i in {1..30}; do
+            EXTERNAL_IP=$(kubectl get service ${{ env.K8S_DEPLOYMENT_NAME }} \
+              --namespace ${{ env.K8S_NAMESPACE }} \
+              --output jsonpath='{.status.loadBalancer.ingress[0].ip}')
+
+            if [ -n "$EXTERNAL_IP" ]; then
+              echo "External IP: $EXTERNAL_IP"
+              echo "FIND_MY_HOBBY_API_BASE_URL=http://$EXTERNAL_IP" >> "$GITHUB_ENV"
+              exit 0
+            fi
+
+            echo "Waiting for external IP..."
+            sleep 10
+          done
+
+          echo "Timed out waiting for external IP"
+          exit 1
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Run acceptance tests
+        run: |
+          dotnet test FindMyHobbyApi.AcceptanceTests/FindMyHobbyApi.AcceptanceTests.csproj \
+            --configuration Release
