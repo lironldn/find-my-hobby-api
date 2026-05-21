@@ -58,20 +58,11 @@ jobs:
             ${{ env.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             ${{ env.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
 
-  approve-deploy:
-    name: Approve AKS deployment
-    runs-on: ubuntu-latest
-    environment: aks
-    needs: build-and-publish
-
-    steps:
-      - name: Await approval
-        run: echo "Approved to deploy to AKS."
-
   deploy-and-test:
     name: Deploy to AKS and run acceptance tests
     runs-on: ubuntu-latest
-    needs: approve-deploy
+    environment: aks
+    needs: build-and-publish
 
     steps:
       - name: Checkout repository
