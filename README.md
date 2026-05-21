@@ -181,6 +181,15 @@ The React + TypeScript frontend lives in [FindMyHobbyWeb](FindMyHobbyWeb/README.
 It renders a hobby search form, calls the API, and displays the returned courses in a table.
 The container image is intended to run in the same AKS cluster as the API (to save costs).
 
+When AKS is up and running, the website is available at:
+
+http://findmyhobby.schur-thing.com
+
+Public access:
+
+- `findmyhobby.schur-thing.com` is managed in Squarespace and points at the AKS load balancer.
+- The Kubernetes `LoadBalancer` services still provision and wait on their own external IPs during deployment.
+
 ## Run Locally
 
 Use two terminals.
