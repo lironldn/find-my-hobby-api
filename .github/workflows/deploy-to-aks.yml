@@ -1,4 +1,4 @@
-name: Build and Deploy to AKS
+name: Build, Publish, and Deploy to AKS
 
 on:
   push:
@@ -18,8 +18,8 @@ env:
   K8S_NAMESPACE: default
 
 jobs:
-  build-publish-deploy:
-    name: Build, publish, and deploy
+  build-and-publish:
+    name: Build and publish Docker image
     runs-on: ubuntu-latest
 
     steps:
@@ -57,6 +57,34 @@ jobs:
           tags: |
             ${{ env.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             ${{ env.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
+
+  deploy-and-test:
+    name: Deploy to AKS and run acceptance tests
+    runs-on: ubuntu-latest
+    environment: aks
+    needs: build-and-publish
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Set image variables
+        shell: bash
+        run: |
+          echo "IMAGE_TAG=${GITHUB_SHA}" >> "$GITHUB_ENV"
+          echo "ACR_LOGIN_SERVER=${{ secrets.ACR_NAME }}.azurecr.io" >> "$GITHUB_ENV"
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
 
       - name: Get AKS credentials
         run: |
@@ -108,11 +136,6 @@ jobs:
 
           echo "Timed out waiting for external IP"
           exit 1
-
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: "10.0.x"
 
       - name: Run acceptance tests
         run: |
