@@ -141,7 +141,7 @@ The repository includes three GitHub Actions workflows:
 
 ### `deploy-to-aks.yml`
 
-Builds and publishes the container image, then deploys it to AKS and runs the acceptance tests.
+Builds and publishes the API and website container images, then deploys the API to AKS, runs the acceptance tests, and deploys the website after the backend stage completes.
 
 Flow:
 
@@ -153,6 +153,8 @@ Flow:
 6. Update the deployment image to the SHA-tagged image.
 7. Wait for rollout and for the service external IP.
 8. Run the acceptance tests against the deployed service.
+9. Build and publish the website image.
+10. Deploy the website to AKS after the backend stage has completed successfully.
 
 ### `deploy-infra.yml`
 
