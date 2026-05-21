@@ -93,8 +93,8 @@ jobs:
       - name: Build and push website image to ACR
         uses: docker/build-push-action@v6
         with:
-          context: ./FindMyHobbyWeb
-          file: Dockerfile
+          context: .
+          file: ./FindMyHobbyWeb/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
