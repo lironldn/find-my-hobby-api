@@ -172,6 +172,39 @@ Starts, stops, or checks the AKS cluster.
 - scheduled runs stop the cluster outside working hours
 - manual runs can `start`, `stop`, or show `status`
 
+## Frontend
+
+The React + TypeScript frontend lives in [FindMyHobbyWeb](FindMyHobbyWeb/README.md).
+
+It renders a hobby search form, calls the API, and displays the returned courses in a table.
+The container image is intended to run in the same AKS cluster as the API (to save costs).
+
+## Run Locally
+
+Use two terminals.
+
+### 1. Start the API
+
+```bash
+docker compose up --build
+```
+
+This starts the API on `http://localhost:5001`.
+
+If you want `POST /courses/search` to work locally, set `OPENAI_API_KEY` in `FindMyHobbyApi/appsettings.Local.json`.
+
+### 2. Start the frontend
+
+```bash
+cd FindMyHobbyWeb
+npm install
+npm run dev
+```
+
+Open the Vite URL it prints, usually `http://localhost:5173`.
+
+The frontend proxies `/api/*` to `http://localhost:5001`, so it will talk to the local API without extra CORS setup.
+
 ## Infrastructure Deployment
 
 Infrastructure is deployed with Bicep through GitHub Actions, not by manually creating resources in the portal.

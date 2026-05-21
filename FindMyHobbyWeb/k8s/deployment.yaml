@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: find-my-hobby-web
+  labels:
+    app: find-my-hobby-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: find-my-hobby-web
+  template:
+    metadata:
+      labels:
+        app: find-my-hobby-web
+    spec:
+      containers:
+        - name: find-my-hobby-web
+          image: find-my-hobby-web:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
