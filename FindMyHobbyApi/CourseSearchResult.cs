@@ -1,0 +1,12 @@
+record CourseSearchResult(
+    string Title,
+    string ProviderName,
+    string Description,
+    string? Address,
+    string? Postcode,
+    decimal? EstimatedDistanceMiles,
+    bool DistanceIsEstimated,
+    string? Price,
+    string? Schedule,
+    string? BookingUrl,
+    string? SourceUrl);

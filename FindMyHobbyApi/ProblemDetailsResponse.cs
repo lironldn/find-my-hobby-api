@@ -1,0 +1,1 @@
+record ProblemDetailsResponse(string Detail);

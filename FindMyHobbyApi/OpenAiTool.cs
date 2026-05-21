@@ -1,0 +1,1 @@
+record OpenAiTool(string Type);
