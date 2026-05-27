@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jira Ready Check"
+  short_description: "Check whether a Jira issue is ready"
+  default_prompt: "Use $jira-ready-check to inspect FMH-5 and move it to READY only if the ticket has enough detail, acceptance criteria, and no blockers."
