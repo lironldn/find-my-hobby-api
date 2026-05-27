@@ -465,10 +465,7 @@ internal sealed class JiraConfig
                 continue;
             }
 
-            if (Environment.GetEnvironmentVariable(key) is null)
-            {
-                Environment.SetEnvironmentVariable(key, value);
-            }
+            Environment.SetEnvironmentVariable(key, value);
         }
     }
 
