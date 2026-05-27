@@ -67,6 +67,7 @@ Definition of done:
 
 The repository includes a small CLI helper in `JiraTool` for common Jira operations.
 It reads `JIRA_BASE_URL`, `JIRA_CLOUD_ID`, and `JIRA_API_TOKEN` from a local `.env` file when present, and otherwise falls back to the process environment.
+The `show` command fetches `summary`, `status`, `labels`, and `description` from the Jira issue.
 
 Examples:
 

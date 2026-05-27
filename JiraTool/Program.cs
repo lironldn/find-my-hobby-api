@@ -201,7 +201,7 @@ internal sealed class JiraClient : IDisposable
 
     public async Task<JiraIssue> GetIssueAsync(string issueKey, CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.GetAsync($"/ex/jira/{Uri.EscapeDataString(_cloudId)}/rest/api/3/issue/{Uri.EscapeDataString(issueKey)}?fields=summary,status,labels", cancellationToken);
+        var response = await _httpClient.GetAsync($"/ex/jira/{Uri.EscapeDataString(_cloudId)}/rest/api/3/issue/{Uri.EscapeDataString(issueKey)}?fields=summary,status,labels,description", cancellationToken);
         return await ReadJsonAsync<JiraIssue>(response, cancellationToken);
     }
 
