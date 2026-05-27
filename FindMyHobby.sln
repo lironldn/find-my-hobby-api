@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindMyHobbyApi", "FindMyHob
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindMyHobbyApi.AcceptanceTests", "FindMyHobbyApi.AcceptanceTests\FindMyHobbyApi.AcceptanceTests.csproj", "{32399184-C8B8-40CB-9AB6-211B4C0973FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraTool", "JiraTool\JiraTool.csproj", "{D557B1AB-9B4C-4D59-8F57-3E7F0EAF7B54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{32399184-C8B8-40CB-9AB6-211B4C0973FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32399184-C8B8-40CB-9AB6-211B4C0973FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32399184-C8B8-40CB-9AB6-211B4C0973FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D557B1AB-9B4C-4D59-8F57-3E7F0EAF7B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D557B1AB-9B4C-4D59-8F57-3E7F0EAF7B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D557B1AB-9B4C-4D59-8F57-3E7F0EAF7B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D557B1AB-9B4C-4D59-8F57-3E7F0EAF7B54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

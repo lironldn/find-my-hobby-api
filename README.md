@@ -2,6 +2,88 @@
 
 `find-my-hobby-api` is an API for helping people discover hobbies and find real UK classes or courses for a specific interest, postcode, and travel radius.
 
+## Project Links
+
+- Jira board: [FindMyHobby board](https://lironschur.atlassian.net/jira/software/projects/FMH/boards/1)
+
+## Jira Integration
+
+Use a dedicated Jira service account for automation. The API token belongs to that account, and Jira still enforces the account's normal product and space permissions.
+
+### 1. Create or choose a Jira service account
+
+Use a non-personal Atlassian account for the FindMyHobby space.
+
+### 2. Grant the account access in Jira
+
+- App access: `Jira -> User`
+- Space role: `Member`
+- Use `Viewer` only if the account is read-only
+
+Do not grant `Jira Administration` or `User Access Admin` unless the account needs to administer Jira itself.
+
+### 3. Create a scoped API token
+
+Create a `JIRA_API_TOKEN` for the service account. The helper sends it as a bearer token to `api.atlassian.com`.
+
+### 4. Set local environment variables
+
+Configure these values in your local environment or secret store:
+
+```bash
+JIRA_BASE_URL=https://api.atlassian.com
+JIRA_CLOUD_ID=0a074c07-2971-4259-a9da-d983675e20d1
+JIRA_API_TOKEN=...
+JIRA_PROJECT_KEY=FMH
+```
+
+### 5. Use the Jira REST API
+
+- Read a ticket: `GET /rest/api/3/issue/{issueKey}`
+- Update labels or description: `PUT /rest/api/3/issue/{issueKey}`
+
+### 6. Create issues with this template
+
+Copy this into the Jira story description when creating a new issue:
+
+```text
+Goal:
+
+Context:
+
+Acceptance criteria:
+- 
+
+Implementation notes:
+
+Dependencies / blockers:
+
+Test notes:
+
+Definition of done:
+```
+
+### 7. Use the local Jira helper
+
+The repository includes a small CLI helper in `JiraTool` for common Jira operations.
+It reads `JIRA_BASE_URL`, `JIRA_CLOUD_ID`, and `JIRA_API_TOKEN` from the process environment or a local `.env` file.
+
+Examples:
+
+```bash
+JIRA_BASE_URL=https://api.atlassian.com \
+JIRA_CLOUD_ID=0a074c07-2971-4259-a9da-d983675e20d1 \
+JIRA_API_TOKEN=... \
+dotnet run --project JiraTool/JiraTool.csproj show FMH-5
+
+JIRA_BASE_URL=https://api.atlassian.com \
+JIRA_CLOUD_ID=0a074c07-2971-4259-a9da-d983675e20d1 \
+JIRA_API_TOKEN=... \
+dotnet run --project JiraTool/JiraTool.csproj ready FMH-5
+```
+
+The `ready` command reads the available transitions for the issue and moves it to the `READY` status when that transition exists.
+
 ## Project Objectives
 
 The project is designed to:
