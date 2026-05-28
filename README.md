@@ -389,29 +389,18 @@ The current parameter file contains placeholders for the real environment values
 ```json
 {
   "parameters": {
-    "location": { "value": "northeurope" },
+    "location": { "value": "uksouth" },
     "resourceGroupName": { "value": "<RESOURCE_GROUP_NAME>" },
     "aksClusterName": { "value": "<AKS_CLUSTER_NAME>" },
     "acrName": { "value": "<ACR_NAME>" },
     "aksDnsPrefix": { "value": "<AKS_DNS_PREFIX>" },
     "kubernetesVersion": { "value": "" },
-    "systemNodeVmSize": { "value": "Standard_D3_v2" },
-    "systemNodeCount": { "value": 1 },
-    "systemNodePoolName": { "value": "nodepool1" },
-    "userNodeVmSize": { "value": "Standard_B2ls_v2" },
-    "userNodeCount": { "value": 1 },
-    "userNodePoolName": { "value": "workloadpool" },
-    "workloadNodeLabelValue": { "value": "apps" }
+    "nodeVmSize": { "value": "Standard_D2pls_v6" },
+    "nodeCount": { "value": 1 },
+    "systemNodePoolName": { "value": "nodepool1" }
   }
 }
 ```
-
-The cluster uses two node pools:
-
-- a system pool for AKS-managed components
-- a user pool for the API and website workloads
-
-The API and website deployments use `nodeSelector: workload=apps` so they land on the user pool instead of the system pool.
 
 ## Acceptance Tests
 

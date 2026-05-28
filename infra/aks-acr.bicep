@@ -16,25 +16,13 @@ param aksDnsPrefix string
 param kubernetesVersion string
 
 @description('AKS system node VM size.')
-param systemNodeVmSize string
+param nodeVmSize string
 
 @description('AKS system node count.')
-param systemNodeCount int
+param nodeCount int
 
 @description('AKS system node pool name. For an existing AKS cluster, this must match the existing system node pool name.')
 param systemNodePoolName string = 'nodepool1'
-
-@description('AKS user node VM size for application workloads.')
-param userNodeVmSize string
-
-@description('AKS user node count.')
-param userNodeCount int
-
-@description('AKS user node pool name.')
-param userNodePoolName string = 'workloadpool'
-
-@description('Label value used to steer application pods to the user node pool.')
-param workloadNodeLabelValue string = 'apps'
 
 var acrPullRoleDefinitionId = subscriptionResourceId(
   'Microsoft.Authorization/roleDefinitions',
@@ -67,16 +55,13 @@ resource aks 'Microsoft.ContainerService/managedClusters@2024-05-01' = {
     agentPoolProfiles: [
       {
         name: systemNodePoolName
-        count: systemNodeCount
-        vmSize: systemNodeVmSize
+        count: nodeCount
+        vmSize: nodeVmSize
         osType: 'Linux'
         osSKU: 'Ubuntu'
         mode: 'System'
         type: 'VirtualMachineScaleSets'
         enableAutoScaling: false
-        nodeTaints: [
-          'CriticalAddonsOnly=true:NoSchedule'
-        ]
       }
     ]
 
@@ -89,23 +74,6 @@ resource aks 'Microsoft.ContainerService/managedClusters@2024-05-01' = {
 
     apiServerAccessProfile: {
       enablePrivateCluster: false
-    }
-  }
-}
-
-resource userAgentPool 'Microsoft.ContainerService/managedClusters/agentPools@2024-05-01' = {
-  parent: aks
-  name: userNodePoolName
-  properties: {
-    count: userNodeCount
-    vmSize: userNodeVmSize
-    osType: 'Linux'
-    osSKU: 'Ubuntu'
-    mode: 'User'
-    type: 'VirtualMachineScaleSets'
-    enableAutoScaling: false
-    nodeLabels: {
-      workload: workloadNodeLabelValue
     }
   }
 }

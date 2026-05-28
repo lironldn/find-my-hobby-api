@@ -32,7 +32,7 @@ jobs:
       - name: Validate Bicep deployment
         run: |
           az deployment sub validate \
-            --location northeurope \
+            --location uksouth \
             --template-file infra/main.bicep \
             --parameters infra/main.parameters.json
 
@@ -40,7 +40,7 @@ jobs:
         run: |
           az deployment sub create \
             --name find-my-hobby-infra-${{ github.run_number }} \
-            --location northeurope \
+            --location uksouth \
             --template-file infra/main.bicep \
             --parameters infra/main.parameters.json
 

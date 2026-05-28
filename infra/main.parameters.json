@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "location": {
-      "value": "northeurope"
+      "value": "uksouth"
     },
     "resourceGroupName": {
       "value": "find-my-hobby-rg"
@@ -20,26 +20,14 @@
     "kubernetesVersion": {
       "value": ""
     },
-    "systemNodeVmSize": {
-      "value": "Standard_D3_v2"
+    "nodeVmSize": {
+      "value": "Standard_D2pls_v6"
     },
-    "systemNodeCount": {
+    "nodeCount": {
       "value": 1
     },
     "systemNodePoolName": {
       "value": "nodepool1"
-    },
-    "userNodeVmSize": {
-      "value": "Standard_B2ls_v2"
-    },
-    "userNodeCount": {
-      "value": 1
-    },
-    "userNodePoolName": {
-      "value": "workloadpool"
-    },
-    "workloadNodeLabelValue": {
-      "value": "apps"
     }
   }
 }

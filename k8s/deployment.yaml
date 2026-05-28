@@ -14,8 +14,6 @@ spec:
       labels:
         app: find-my-hobby-api
     spec:
-      nodeSelector:
-        workload: apps
       containers:
         - name: find-my-hobby-api
           image: find-my-hobby-api:latest
