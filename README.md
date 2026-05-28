@@ -395,7 +395,7 @@ The current parameter file contains placeholders for the real environment values
     "acrName": { "value": "<ACR_NAME>" },
     "aksDnsPrefix": { "value": "<AKS_DNS_PREFIX>" },
     "kubernetesVersion": { "value": "" },
-    "systemNodeVmSize": { "value": "Standard_D15_v2" },
+    "systemNodeVmSize": { "value": "Standard_EC4as_v5" },
     "systemNodeCount": { "value": 1 },
     "systemNodePoolName": { "value": "nodepool1" },
     "userNodeVmSize": { "value": "Standard_B2ls_v2" },

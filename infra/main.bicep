@@ -19,7 +19,7 @@ param aksDnsPrefix string = 'find-my-hobby'
 param kubernetesVersion string = ''
 
 @description('AKS system node VM size.')
-param systemNodeVmSize string = 'Standard_D15_v2'
+param systemNodeVmSize string = 'Standard_EC4as_v5'
 
 @description('AKS system node count.')
 @minValue(1)
