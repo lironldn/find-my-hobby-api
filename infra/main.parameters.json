@@ -21,7 +21,7 @@
       "value": ""
     },
     "systemNodeVmSize": {
-      "value": "Standard_EC4as_v5"
+      "value": "Standard_D3_v2"
     },
     "systemNodeCount": {
       "value": 1
