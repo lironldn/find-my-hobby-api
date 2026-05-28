@@ -57,14 +57,14 @@ jobs:
         shell: bash
         run: |
           POWER_STATE=$(az aks show \
-            --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
-            --name ${{ secrets.AKS_CLUSTER_NAME }} \
+            --resource-group ${{ vars.AKS_RESOURCE_GROUP }} \
+            --name ${{ vars.AKS_CLUSTER_NAME }} \
             --query "powerState.code" \
             --output tsv)
 
           PROVISIONING_STATE=$(az aks show \
-            --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
-            --name ${{ secrets.AKS_CLUSTER_NAME }} \
+            --resource-group ${{ vars.AKS_RESOURCE_GROUP }} \
+            --name ${{ vars.AKS_CLUSTER_NAME }} \
             --query "provisioningState" \
             --output tsv)
 
@@ -78,8 +78,8 @@ jobs:
         if: steps.decide.outputs.action == 'stop' && steps.aks-status.outputs.power_state == 'Running'
         run: |
           az aks stop \
-            --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
-            --name ${{ secrets.AKS_CLUSTER_NAME }}
+            --resource-group ${{ vars.AKS_RESOURCE_GROUP }} \
+            --name ${{ vars.AKS_CLUSTER_NAME }}
 
       - name: Skip stop because AKS is already stopped
         if: steps.decide.outputs.action == 'stop' && steps.aks-status.outputs.power_state != 'Running'
@@ -90,8 +90,8 @@ jobs:
         if: steps.decide.outputs.action == 'start' && steps.aks-status.outputs.power_state != 'Running'
         run: |
           az aks start \
-            --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
-            --name ${{ secrets.AKS_CLUSTER_NAME }}
+            --resource-group ${{ vars.AKS_RESOURCE_GROUP }} \
+            --name ${{ vars.AKS_CLUSTER_NAME }}
 
       - name: Skip start because AKS is already running
         if: steps.decide.outputs.action == 'start' && steps.aks-status.outputs.power_state == 'Running'
@@ -102,7 +102,7 @@ jobs:
         if: steps.decide.outputs.action == 'status'
         run: |
           az aks show \
-            --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
-            --name ${{ secrets.AKS_CLUSTER_NAME }} \
+            --resource-group ${{ vars.AKS_RESOURCE_GROUP }} \
+            --name ${{ vars.AKS_CLUSTER_NAME }} \
             --query "{name:name, powerState:powerState.code, provisioningState:provisioningState}" \
             --output table

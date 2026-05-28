@@ -116,6 +116,8 @@ For Codex branch and PR work:
 - confirm with `gh auth status`
 - give the PAT repository access with `Contents: Read and write`, `Pull requests: Read and write`, and `Metadata: Read`
 - keep `main` protected so Codex works through feature branches and PRs
+- store `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`, `ACR_NAME`, `AKS_RESOURCE_GROUP`, and `AKS_CLUSTER_NAME` as GitHub repository or environment variables, not secrets
+- keep `OPENAI_API_KEY` as a secret because the workflow writes it into the Kubernetes secret at deploy time
 
 #### Git identity
 
