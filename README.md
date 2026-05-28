@@ -119,6 +119,16 @@ For Codex branch and PR work:
 
 Do not change git config to mark Codex work. Use commit author/committer metadata on the specific commit commands instead so your own commits stay untouched.
 
+### 9. PR review follow-up
+
+Use the `address-pr-issues` skill when a ticket-scoped pull request has review comments that need to be addressed.
+Examples:
+
+- `address FMH-5 PR comments`
+- `address PR comments for FMH-5`
+
+It reads the PR comments for that ticket, applies the actionable fixes on the existing branch, and reports back what was changed.
+
 ## Project Objectives
 
 The project is designed to:

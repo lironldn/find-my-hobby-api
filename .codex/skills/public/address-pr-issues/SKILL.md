@@ -1,14 +1,14 @@
 ---
 name: address-pr-issues
-description: Read comments on a pull request, identify actionable review feedback, implement the requested fixes on the existing branch, and report back what was addressed.
+description: Read comments on a ticket-scoped pull request, identify actionable review feedback, implement the requested fixes on the existing branch, and report back what was addressed. Use it for prompts like "address FMH-5 PR comments" or "address PR comments for FMH-5".
 ---
 
 # Address PR Issues
 
 ## Overview
 
-Use this skill when the user asks to "address PR issues" or similar phrasing.
-The skill should inspect the pull request comments and review feedback, identify what needs code changes, and apply the fixes on the current branch.
+Use this skill when the user asks to address PR comments for a specific ticket, for example: "address FMH-5 PR comments".
+The skill should inspect the pull request comments and review feedback for that ticket, identify what needs code changes, and apply the fixes on the current branch.
 
 ## Workflow
 
