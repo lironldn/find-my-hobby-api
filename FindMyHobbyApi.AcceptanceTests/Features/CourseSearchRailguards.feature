@@ -1,5 +1,11 @@
 Feature: Course search railguards
 
+Scenario: Accept valid course search input
+    Given the Find My Hobby API is available for course search
+    When I request a course search with valid input
+    Then the course search response status code should be 200
+    And the course search response should contain relevant results
+
 Scenario: Reject overlong hobby descriptions
     Given the Find My Hobby API is available for course search
     When I request a course search with an overlong hobby description
