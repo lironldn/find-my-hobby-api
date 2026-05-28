@@ -121,6 +121,13 @@ For Codex branch and PR work:
 
 Do not change git config to mark Codex work. Use commit author/committer metadata on the specific commit commands instead so your own commits stay untouched.
 
+Use the `rebase-story-branch` skill when a named story branch needs to be rebased onto the latest base branch.
+Examples:
+
+- `rebase the FMH-5 branch`
+- `rebase story FMH-12 onto main`
+- `rebase the branch for ticket ABC-123`
+
 ### 9. PR review follow-up
 
 Use the `address-pr-issues` skill when a ticket-scoped pull request has review comments that need to be addressed.

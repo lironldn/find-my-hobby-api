@@ -1,0 +1,3 @@
+interface:
+  display_name: "Rebase Story Branch"
+  short_description: "Rebase a named story branch and handle straightforward conflicts"
