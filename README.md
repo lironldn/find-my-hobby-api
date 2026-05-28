@@ -85,6 +85,37 @@ dotnet run --project JiraTool/JiraTool.csproj ready FMH-5
 
 The `ready` command reads the available transitions for the issue and moves it to the `READY` status when that transition exists.
 
+### 8. Codex ticket workflow
+
+Use the `jira-ready-check` skill when using Codex to pick up a Jira ticket:
+
+1. Check whether the issue is already in `READY`.
+2. If it is not ready, move it back to `Backlog`, append a short note explaining what is missing, and stop.
+3. If it is ready, create a feature branch named like `feature/FMH-5-shortdescription`.
+4. Make the code changes on that branch.
+5. Create commits with Codex author and committer metadata so they are distinguishable from your own commits.
+6. Push the branch and open a PR against `main` when GitHub access is available.
+
+#### Local setup
+
+For the Jira helper:
+
+- keep `JIRA_BASE_URL`, `JIRA_CLOUD_ID`, and `JIRA_API_TOKEN` in `.env` or exported in the shell
+- if `.env` exists, the helper reads it first
+
+For Codex branch and PR work:
+
+- install `gh`
+- create a fine-grained GitHub PAT for this repository
+- authenticate `gh` with the PAT, either by exporting `GH_TOKEN` or running `gh auth login --with-token`
+- confirm with `gh auth status`
+- give the PAT repository access with `Contents: Read and write`, `Pull requests: Read and write`, and `Metadata: Read`
+- keep `main` protected so Codex works through feature branches and PRs
+
+#### Git identity
+
+Do not change git config to mark Codex work. Use commit author/committer metadata on the specific commit commands instead so your own commits stay untouched.
+
 ## Project Objectives
 
 The project is designed to:

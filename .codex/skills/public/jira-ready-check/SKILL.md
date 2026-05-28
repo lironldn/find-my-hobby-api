@@ -1,6 +1,6 @@
 ---
 name: jira-ready-check
-description: Check whether a Jira issue is ready to be moved to READY, using JiraTool to inspect the ticket and transition it only when the issue has enough detail, acceptance criteria, and no obvious blockers.
+description: Check whether a Jira issue is ready to be moved to READY, using JiraTool to inspect the ticket and transition it only when the issue has enough detail, acceptance criteria, and no obvious blockers. When the issue is ready, create a feature branch, make the code changes, and open a PR. When creating branch commits, use commit author/committer metadata to mark changes as Codex-authored and do not change git config.
 ---
 
 # Jira Ready Check
@@ -18,8 +18,12 @@ The skill should inspect the issue with `JiraTool`, decide whether it is actiona
    - concrete acceptance criteria
    - implementation notes or a bounded scope
    - no unresolved blockers or missing dependencies
-3. If the issue is ready, run `JiraTool ready <issueKey>`.
-4. If it is not ready, do not transition it. Report the missing details briefly.
+3. If it is not ready, stop, move it back to `Backlog`, append a short note about what is missing, and report the gap briefly.
+4. If it is ready, run `JiraTool ready <issueKey>`.
+5. Create a new branch in the repository using the pattern `feature/<issue-key>-<shortdescription>`.
+6. Make the code changes described in the ticket on that branch.
+7. Create commits with Codex author/committer metadata instead of changing local git config.
+8. Push the branch and open a PR to the main repository when GitHub access is available.
 
 ## Readiness Criteria
 
@@ -32,3 +36,5 @@ When reporting back, be direct:
 - say whether the issue is ready
 - if ready, say it was moved to `READY`
 - if not ready, list the missing pieces briefly
+- if code was changed, note that commit metadata was used to distinguish Codex-authored commits
+- if a branch or PR was created, name it explicitly
