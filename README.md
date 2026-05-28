@@ -89,8 +89,8 @@ The `ready` command reads the available transitions for the issue and moves it t
 
 Use the `jira-ready-check` skill when using Codex on a Jira ticket:
 
-- use "check whether FMH-5 is ready" when you only want the readiness decision and Jira state update
-- use "pick up FMH-5" when you want Codex to perform the readiness check and, if ready, branch, implement, and open a PR
+- use "check whether FMH-5 is ready" for the readiness decision and Jira status update only
+- use "pick up FMH-5" for the readiness check plus branch, implementation, and PR work
 
 1. Check whether the issue is already in `READY`.
 2. If it is not ready, move it back to `Backlog`, append a short note explaining what is missing, and stop.
@@ -209,7 +209,10 @@ Response shape:
 Validation rules:
 
 - `hobbyDescription` is required
+- `hobbyDescription` is limited to 200 characters
+- `hobbyDescription` cannot contain obvious prompt-injection style instructions
 - `postcode` is required
+- `postcode` must look like a valid UK postcode
 - `maximumDistanceMiles` must be greater than 0
 - `maximumDistanceMiles` must be 100 or less
 
