@@ -37,10 +37,12 @@ Use this path when the user asks to pick up an issue.
 2. Apply the same readiness check as above.
 3. If it is not ready, move it back to `Backlog`, append a short note explaining why it cannot be picked up, and stop.
 4. If it is ready, run `JiraTool ready <issueKey>`.
-5. Create a new branch in the repository using the pattern `feature/<issue-key>-<shortdescription>`.
-6. Make the code changes described in the ticket on that branch.
-7. Create commits with Codex author/committer metadata instead of changing local git config.
-8. Push the branch and open a PR to the main repository when GitHub access is available.
+5. Update the ticket to `In Progress` before starting work.
+6. Create a new branch in the repository using the pattern `feature/<issue-key>-<shortdescription>`.
+7. Make the code changes described in the ticket on that branch.
+8. Create commits with Codex author/committer metadata instead of changing local git config.
+9. Push the branch and open a PR to the main repository when GitHub access is available.
+10. After opening the PR, update the ticket status to `Review`.
 
 ## Readiness Criteria
 

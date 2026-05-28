@@ -94,10 +94,12 @@ Use the `jira-ready-check` skill when using Codex on a Jira ticket:
 
 1. Check whether the issue is already in `READY`.
 2. If it is not ready, move it back to `Backlog`, append a short note explaining what is missing, and stop.
-3. If it is ready, create a feature branch named like `feature/FMH-5-shortdescription`.
-4. Make the code changes on that branch.
-5. Create commits with Codex author and committer metadata so they are distinguishable from your own commits.
-6. Push the branch and open a PR against `main` when GitHub access is available.
+3. If it is ready, move it to `In Progress`.
+4. Create a feature branch named like `feature/FMH-5-shortdescription`.
+5. Make the code changes on that branch.
+6. Create commits with Codex author and committer metadata so they are distinguishable from your own commits.
+7. Push the branch and open a PR against `main` when GitHub access is available.
+8. After opening the PR, move the ticket to `Review`.
 
 #### Local setup
 
@@ -136,7 +138,7 @@ Example:
 
 - `PR for FMH-5 is now merged`
 
-It confirms the PR is merged, deletes the branch if it still exists, switches to `main`, and pulls the latest changes.
+It confirms the PR is merged, deletes the branch if it still exists, switches to `main`, pulls the latest changes, and moves the ticket to `Done`.
 
 ## Project Objectives
 
