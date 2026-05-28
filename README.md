@@ -129,6 +129,15 @@ Examples:
 
 It reads the PR comments for that ticket, applies the actionable fixes on the existing branch, and reports back what was changed.
 
+### 10. Merged PR cleanup
+
+Use the `pr-merged-cleanup` skill when a ticket-scoped pull request has been merged and the branch should be cleaned up.
+Example:
+
+- `PR for FMH-5 is now merged`
+
+It confirms the PR is merged, deletes the branch if it still exists, switches to `main`, and pulls the latest changes.
+
 ## Project Objectives
 
 The project is designed to:

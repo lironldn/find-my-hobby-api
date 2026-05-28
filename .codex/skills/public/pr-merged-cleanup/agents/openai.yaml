@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Merged Cleanup"
+  short_description: "Clean up after a merged PR"
+  default_prompt: "Use $pr-merged-cleanup for a merged ticket PR like FMH-5: confirm it is merged, delete the branch if it still exists, switch to main, and pull the latest changes."
