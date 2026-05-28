@@ -19,18 +19,18 @@ param aksDnsPrefix string = 'find-my-hobby'
 param kubernetesVersion string = ''
 
 @description('AKS system node VM size.')
-param systemNodeVmSize string = 'Standard_D4as_v5'
+param systemNodeVmSize string = 'Standard_D15_v2'
 
 @description('AKS system node count.')
 @minValue(1)
 @maxValue(3)
-param systemNodeCount int = 2
+param systemNodeCount int = 1
 
 @description('AKS system node pool name. For an existing AKS cluster, this must match the existing system node pool name.')
 param systemNodePoolName string = 'nodepool1'
 
 @description('AKS user node VM size for application workloads.')
-param userNodeVmSize string = 'Standard_B2s'
+param userNodeVmSize string = 'Standard_B2ls_v2'
 
 @description('AKS user node count.')
 @minValue(0)

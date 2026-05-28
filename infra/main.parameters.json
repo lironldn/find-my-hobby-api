@@ -21,16 +21,16 @@
       "value": ""
     },
     "systemNodeVmSize": {
-      "value": "Standard_D4as_v5"
+      "value": "Standard_D15_v2"
     },
     "systemNodeCount": {
-      "value": 2
+      "value": 1
     },
     "systemNodePoolName": {
       "value": "nodepool1"
     },
     "userNodeVmSize": {
-      "value": "Standard_B2s"
+      "value": "Standard_B2ls_v2"
     },
     "userNodeCount": {
       "value": 1
