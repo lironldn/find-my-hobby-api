@@ -1,7 +1,7 @@
 targetScope = 'subscription'
 
 @description('Azure region for all resources.')
-param location string = 'uksouth'
+param location string = 'northeurope'
 
 @description('Resource group name.')
 param resourceGroupName string = 'find-my-hobby-rg'

@@ -389,7 +389,7 @@ The current parameter file contains placeholders for the real environment values
 ```json
 {
   "parameters": {
-    "location": { "value": "uksouth" },
+    "location": { "value": "northeurope" },
     "resourceGroupName": { "value": "<RESOURCE_GROUP_NAME>" },
     "aksClusterName": { "value": "<AKS_CLUSTER_NAME>" },
     "acrName": { "value": "<ACR_NAME>" },
