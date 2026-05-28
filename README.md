@@ -87,7 +87,10 @@ The `ready` command reads the available transitions for the issue and moves it t
 
 ### 8. Codex ticket workflow
 
-Use the `jira-ready-check` skill when using Codex to pick up a Jira ticket:
+Use the `jira-ready-check` skill when using Codex on a Jira ticket:
+
+- use "check whether FMH-5 is ready" when you only want the readiness decision and Jira state update
+- use "pick up FMH-5" when you want Codex to perform the readiness check and, if ready, branch, implement, and open a PR
 
 1. Check whether the issue is already in `READY`.
 2. If it is not ready, move it back to `Backlog`, append a short note explaining what is missing, and stop.

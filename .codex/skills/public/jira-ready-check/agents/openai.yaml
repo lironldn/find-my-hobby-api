@@ -1,4 +1,4 @@
 interface:
   display_name: "Jira Ready Check"
   short_description: "Check whether a Jira issue is ready"
-  default_prompt: "Use $jira-ready-check to inspect FMH-5, move it to READY only if the ticket has enough detail, acceptance criteria, and no blockers, then create the feature branch, make the code changes, and open a PR. Distinguish Codex-authored commits via commit metadata, not git config."
+  default_prompt: "Use $jira-ready-check to either check whether FMH-5 is ready or pick up FMH-5. For readiness checks, move it to READY only if the ticket has enough detail, acceptance criteria, and no blockers. For pick-up requests, do the readiness check first, then create the feature branch, make the code changes, and open a PR. Distinguish Codex-authored commits via commit metadata, not git config."
