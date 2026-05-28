@@ -25,6 +25,11 @@ spec:
               value: "http://+:8080"
             - name: ASPNETCORE_ENVIRONMENT
               value: "Production"
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openai-api-key
+                  key: OPENAI_API_KEY
           readinessProbe:
             httpGet:
               path: /health

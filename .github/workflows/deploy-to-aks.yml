@@ -136,6 +136,15 @@ jobs:
             --name ${{ secrets.AKS_CLUSTER_NAME }} \
             --overwrite-existing
 
+      - name: Create or update OpenAI secret
+        shell: bash
+        run: |
+          kubectl create secret generic openai-api-key \
+            --namespace ${{ env.K8S_NAMESPACE }} \
+            --from-literal=OPENAI_API_KEY='${{ secrets.OPENAI_API_KEY }}' \
+            --dry-run=client \
+            -o yaml | kubectl apply -f -
+
       - name: Deploy Kubernetes manifests
         run: |
           kubectl apply \

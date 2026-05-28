@@ -280,6 +280,9 @@ docker run --rm -p 8080:8080 find-my-hobby-api
 
 The repository includes three GitHub Actions workflows:
 
+The API deployment workflow creates an AKS secret named `openai-api-key` from the `OPENAI_API_KEY` value stored in the `aks` GitHub environment, and the API pod reads it through `secretKeyRef`.
+Use `OPENAI_API_KEY` as the GitHub environment secret name. GitHub secret names do not allow spaces.
+
 ### `deploy-to-aks.yml`
 
 Builds and publishes the API and website container images, then deploys the API to AKS, runs the acceptance tests, and deploys the website after the backend stage completes.
