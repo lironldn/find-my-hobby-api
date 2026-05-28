@@ -14,6 +14,13 @@ on:
 
   workflow_dispatch:
     inputs:
+      environment:
+        description: "Environment to target"
+        required: true
+        default: "aks"
+        type: choice
+        options:
+          - aks
       action:
         description: "Action to perform"
         required: true
@@ -32,6 +39,7 @@ jobs:
   schedule-aks:
     name: Schedule AKS
     runs-on: ubuntu-latest
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'aks' }}
 
     steps:
       - name: Azure login
