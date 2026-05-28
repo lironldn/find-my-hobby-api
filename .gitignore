@@ -56,3 +56,6 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Reqnroll generated feature wrappers
+FindMyHobbyApi.AcceptanceTests/Features/*.feature.cs

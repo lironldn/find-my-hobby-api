@@ -49,24 +49,10 @@ app.MapPost("/courses/search", async (
         IConfiguration configuration,
         CancellationToken cancellationToken) =>
     {
-        if (string.IsNullOrWhiteSpace(request.HobbyDescription))
+        var validationError = CourseSearchGuardrails.Validate(request);
+        if (validationError is not null)
         {
-            return Results.BadRequest(new ProblemDetailsResponse("Hobby description is required."));
-        }
-
-        if (string.IsNullOrWhiteSpace(request.Postcode))
-        {
-            return Results.BadRequest(new ProblemDetailsResponse("UK postcode is required."));
-        }
-
-        if (request.MaximumDistanceMiles <= 0)
-        {
-            return Results.BadRequest(new ProblemDetailsResponse("Maximum distance must be greater than zero."));
-        }
-
-        if (request.MaximumDistanceMiles > 100)
-        {
-            return Results.BadRequest(new ProblemDetailsResponse("Maximum distance must be 100 miles or less."));
+            return Results.BadRequest(new ProblemDetailsResponse(validationError));
         }
 
         var openAiApiKey = configuration["OPENAI_API_KEY"];
@@ -78,53 +64,7 @@ app.MapPost("/courses/search", async (
                 statusCode: StatusCodes.Status500InternalServerError);
         }
 
-        var prompt = $$"""
-                       Find available UK courses and classes for the following hobby.
-
-                       Hobby description:
-                       {{request.HobbyDescription}}
-
-                       UK postcode:
-                       {{request.Postcode}}
-
-                       Maximum distance:
-                       {{request.MaximumDistanceMiles}} miles
-
-                       Requirements:
-                       - Search for real, currently available courses/classes/workshops.
-                       - Prefer official provider pages.
-                       - Only include results that appear to be within the requested distance of the postcode.
-                       - Return up to 10 results.
-                       - If exact distance is uncertain, estimate it and set "distanceIsEstimated" to true.
-                       - Include booking/contact URL where available.
-                       - Do not invent providers, URLs, prices, or dates.
-                       - If there are not enough results, return fewer results.
-                       - Return JSON only, with this exact shape:
-
-                       {
-                         "query": {
-                           "hobbyDescription": "...",
-                           "postcode": "...",
-                           "maximumDistanceMiles": 10
-                         },
-                         "results": [
-                           {
-                             "title": "...",
-                             "providerName": "...",
-                             "description": "...",
-                             "address": "...",
-                             "postcode": "...",
-                             "estimatedDistanceMiles": 1.2,
-                             "distanceIsEstimated": true,
-                             "price": "...",
-                             "schedule": "...",
-                             "bookingUrl": "...",
-                             "sourceUrl": "..."
-                           }
-                         ],
-                         "notes": "..."
-                       }
-                       """;
+        var prompt = CourseSearchGuardrails.BuildPrompt(request);
 
         var openAiRequest = new OpenAiResponsesRequest(
             Model: "gpt-4.1",

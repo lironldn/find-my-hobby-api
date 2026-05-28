@@ -1,0 +1,4 @@
+interface:
+  display_name: "Address PR Issues"
+  short_description: "Read PR comments and apply fixes"
+  default_prompt: "Use $address-pr-issues to read the comments on the open PR, identify actionable review feedback, make the required code changes on the existing branch, and report back what was fixed."
