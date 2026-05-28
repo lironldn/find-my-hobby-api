@@ -20,14 +20,26 @@
     "kubernetesVersion": {
       "value": ""
     },
-    "nodeVmSize": {
-      "value": "Standard_D2pls_v6"
+    "systemNodeVmSize": {
+      "value": "Standard_D4as_v5"
     },
-    "nodeCount": {
-      "value": 1
+    "systemNodeCount": {
+      "value": 2
     },
     "systemNodePoolName": {
       "value": "nodepool1"
+    },
+    "userNodeVmSize": {
+      "value": "Standard_B2s"
+    },
+    "userNodeCount": {
+      "value": 1
+    },
+    "userNodePoolName": {
+      "value": "workloadpool"
+    },
+    "workloadNodeLabelValue": {
+      "value": "apps"
     }
   }
 }
