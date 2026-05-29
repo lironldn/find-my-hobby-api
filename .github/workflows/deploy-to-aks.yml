@@ -241,6 +241,7 @@ jobs:
   deploy-web:
     name: Deploy website to AKS
     runs-on: ubuntu-latest
+    environment: aks
     needs:
       - acceptance-tests
       - build-and-publish-web
