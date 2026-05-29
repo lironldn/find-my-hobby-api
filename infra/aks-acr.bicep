@@ -83,11 +83,11 @@ resource acrPullAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' 
   scope: acr
   properties: {
     roleDefinitionId: acrPullRoleDefinitionId
-    principalId: aks.identity.principalId
+    principalId: aks.identityProfile.kubeletidentity.objectId
     principalType: 'ServicePrincipal'
   }
 }
 
 output acrLoginServer string = acr.properties.loginServer
 output aksClusterName string = aks.name
-output aksKubeletObjectId string = aks.identity.principalId
+output aksKubeletObjectId string = aks.identityProfile.kubeletidentity.objectId
