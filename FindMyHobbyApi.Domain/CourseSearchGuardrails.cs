@@ -1,7 +1,9 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
-internal static class CourseSearchGuardrails
+namespace FindMyHobbyApi.Domain;
+
+public static class CourseSearchGuardrails
 {
     private const int MaxHobbyDescriptionLength = 200;
     private const int MaxPostcodeLength = 8;

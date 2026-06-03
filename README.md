@@ -85,7 +85,26 @@ dotnet run --project JiraTool/JiraTool.csproj ready FMH-5
 
 The `ready` command reads the available transitions for the issue and moves it to the `READY` status when that transition exists.
 
-### 8. Codex ticket workflow
+### 8. Run tests locally
+
+Run the API and test projects independently so you can debug both processes with breakpoints:
+
+```bash
+dotnet watch --project FindMyHobbyApi/FindMyHobbyApi.csproj run
+```
+
+```bash
+dotnet test FindMyHobbyApi.Domain.UnitTests/FindMyHobbyApi.Domain.UnitTests.csproj
+```
+
+```bash
+FIND_MY_HOBBY_API_BASE_URL=http://localhost:5001 \
+dotnet test FindMyHobbyApi.AcceptanceTests/FindMyHobbyApi.AcceptanceTests.csproj
+```
+
+The API defaults to `http://localhost:5001` in development, so you can attach the debugger to the running `dotnet watch` process and step through the API while the tests run in a separate process.
+
+### 9. Codex ticket workflow
 
 Use the `jira-ready-check` skill when using Codex on a Jira ticket:
 
@@ -130,7 +149,7 @@ Examples:
 - `rebase story FMH-12 onto main`
 - `rebase the branch for ticket ABC-123`
 
-### 9. PR review follow-up
+### 10. PR review follow-up
 
 Use the `address-pr-issues` skill when a ticket-scoped pull request has review comments that need to be addressed.
 Examples:
@@ -140,7 +159,7 @@ Examples:
 
 It reads the PR comments for that ticket, applies the actionable fixes on the existing branch, and reports back what was changed.
 
-### 10. Merged PR cleanup
+### 11. Merged PR cleanup
 
 Use the `pr-merged-cleanup` skill when a ticket-scoped pull request has been merged and the branch should be cleaned up.
 Example:
