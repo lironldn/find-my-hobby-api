@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindMyHobbyApi.Domain", "Fi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindMyHobbyApi.Domain.UnitTests", "FindMyHobbyApi.Domain.UnitTests\FindMyHobbyApi.Domain.UnitTests.csproj", "{F8154AB4-F9E9-4568-AD04-1AD7BF343DCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindMyHobbyApi.UnitTests", "FindMyHobbyApi.UnitTests\FindMyHobbyApi.UnitTests.csproj", "{909A751D-B268-48D4-9FDE-1FD07137B001}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,18 @@ Global
 		{F8154AB4-F9E9-4568-AD04-1AD7BF343DCE}.Release|x64.Build.0 = Release|Any CPU
 		{F8154AB4-F9E9-4568-AD04-1AD7BF343DCE}.Release|x86.ActiveCfg = Release|Any CPU
 		{F8154AB4-F9E9-4568-AD04-1AD7BF343DCE}.Release|x86.Build.0 = Release|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Debug|x64.Build.0 = Debug|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Debug|x86.Build.0 = Debug|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Release|x64.ActiveCfg = Release|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Release|x64.Build.0 = Release|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Release|x86.ActiveCfg = Release|Any CPU
+		{909A751D-B268-48D4-9FDE-1FD07137B001}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

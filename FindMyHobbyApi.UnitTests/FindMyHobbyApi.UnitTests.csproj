@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FindMyHobbyApi.Domain\FindMyHobbyApi.Domain.csproj" />
+    <ProjectReference Include="..\FindMyHobbyApi\FindMyHobbyApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>
