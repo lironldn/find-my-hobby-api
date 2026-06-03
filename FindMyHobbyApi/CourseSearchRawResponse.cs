@@ -1,1 +1,0 @@
-record CourseSearchRawResponse(string RawResponse);

@@ -1,4 +1,6 @@
-record CourseSearchResult(
+namespace FindMyHobbyApi.Domain;
+
+public sealed record CourseSearchResult(
     string Title,
     string ProviderName,
     string Description,
