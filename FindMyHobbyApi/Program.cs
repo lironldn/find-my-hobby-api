@@ -1,5 +1,4 @@
 using FindMyHobbyApi;
-using FindMyHobbyApi.Domain;
 using FindMyHobbyApi.Domain.Clients;
 using FindMyHobbyApi.Domain.Handlers.Commands;
 using FindMyHobbyApi.Domain.Handlers.Queries;
