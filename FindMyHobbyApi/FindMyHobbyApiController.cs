@@ -2,24 +2,17 @@ using FindMyHobbyApi.Domain;
 
 namespace FindMyHobbyApi;
 
-public sealed class FindMyHobbyApiController
+public sealed class FindMyHobbyApiController(IFindMyHobbyApiService service)
 {
-    private readonly IFindMyHobbyApiService _service;
-
-    public FindMyHobbyApiController(IFindMyHobbyApiService service)
-    {
-        _service = service;
-    }
-
     public async Task<IResult> GetHobbyAsync(CancellationToken cancellationToken)
     {
-        var hobbies = await _service.GetHobbyAsync(cancellationToken);
+        var hobbies = await service.GetHobbyAsync(cancellationToken);
         return Results.Ok(hobbies);
     }
 
     public async Task<IResult> SearchCoursesAsync(CourseSearchRequest request, CancellationToken cancellationToken)
     {
-        var outcome = await _service.SearchCoursesAsync(request, cancellationToken);
+        var outcome = await service.SearchCoursesAsync(request, cancellationToken);
 
         return outcome.Kind switch
         {
