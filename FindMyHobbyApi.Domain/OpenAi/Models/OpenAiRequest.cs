@@ -1,4 +1,4 @@
-namespace FindMyHobbyApi.OpenAi.Models;
+namespace FindMyHobbyApi.Domain.OpenAi.Models;
 
 record OpenAiRequest(
     string Model,

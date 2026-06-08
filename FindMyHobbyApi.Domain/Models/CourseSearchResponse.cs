@@ -1,4 +1,4 @@
-namespace FindMyHobbyApi.Domain;
+namespace FindMyHobbyApi.Domain.Models;
 
 public sealed record CourseSearchResponse(
     CourseSearchQuery Query,

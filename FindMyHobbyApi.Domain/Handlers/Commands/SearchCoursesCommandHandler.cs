@@ -1,16 +1,11 @@
 using System.Text.Json;
+using FindMyHobbyApi.Domain.Clients;
+using FindMyHobbyApi.Domain.Models;
 
-namespace FindMyHobbyApi.Domain;
+namespace FindMyHobbyApi.Domain.Handlers.Commands;
 
-public sealed class SearchCoursesCommandHandler : ISearchCoursesCommandHandler
+public sealed class SearchCoursesCommandHandler(ICourseSearchClient courseSearchClient) : ISearchCoursesCommandHandler
 {
-    private readonly ICourseSearchClient _courseSearchClient;
-
-    public SearchCoursesCommandHandler(ICourseSearchClient courseSearchClient)
-    {
-        _courseSearchClient = courseSearchClient;
-    }
-
     public async Task<SearchCoursesOutcome> HandleAsync(SearchCoursesCommand command, CancellationToken cancellationToken)
     {
         var validationError = CourseSearchGuardrails.Validate(command.Request);
@@ -24,7 +19,7 @@ public sealed class SearchCoursesCommandHandler : ISearchCoursesCommandHandler
         string outputText;
         try
         {
-            outputText = await _courseSearchClient.SearchAsync(prompt, cancellationToken);
+            outputText = await courseSearchClient.SearchAsync(prompt, cancellationToken);
         }
         catch (Exception ex)
         {

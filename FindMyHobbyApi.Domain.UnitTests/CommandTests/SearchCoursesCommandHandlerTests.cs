@@ -1,5 +1,7 @@
 using FluentAssertions;
-using FindMyHobbyApi.Domain;
+using FindMyHobbyApi.Domain.Clients;
+using FindMyHobbyApi.Domain.Handlers.Commands;
+using FindMyHobbyApi.Domain.Models;
 using NSubstitute;
 
 namespace FindMyHobbyApi.Domain.UnitTests.CommandTests;

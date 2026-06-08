@@ -1,4 +1,4 @@
-namespace FindMyHobbyApi.Domain;
+namespace FindMyHobbyApi.Domain.Clients;
 
 public interface ICourseSearchClient
 {

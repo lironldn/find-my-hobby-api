@@ -1,6 +1,10 @@
 using FindMyHobbyApi;
 using FindMyHobbyApi.Domain;
-using FindMyHobbyApi.OpenAi;
+using FindMyHobbyApi.Domain.Clients;
+using FindMyHobbyApi.Domain.Handlers.Commands;
+using FindMyHobbyApi.Domain.Handlers.Queries;
+using FindMyHobbyApi.Domain.Models;
+using FindMyHobbyApi.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

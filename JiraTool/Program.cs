@@ -1,4 +1,3 @@
-using System.Text;
 using JiraTool.Exceptions;
 
 namespace JiraTool;

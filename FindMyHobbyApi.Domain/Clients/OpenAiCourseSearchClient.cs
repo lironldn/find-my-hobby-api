@@ -1,10 +1,11 @@
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using FindMyHobbyApi.Domain;
-using FindMyHobbyApi.OpenAi.Models;
+using FindMyHobbyApi.Domain.OpenAi;
+using FindMyHobbyApi.Domain.OpenAi.Models;
+using Microsoft.Extensions.Configuration;
 
-namespace FindMyHobbyApi.OpenAi;
+namespace FindMyHobbyApi.Domain.Clients;
 
 public sealed class OpenAiCourseSearchClient(HttpClient httpClient, IConfiguration configuration) : ICourseSearchClient
 {

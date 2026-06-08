@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace FindMyHobbyApi.OpenAi.Models;
+namespace FindMyHobbyApi.Domain.OpenAi.Models;
 
 record OpenAiResponseOutputItem
 {

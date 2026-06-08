@@ -1,4 +1,6 @@
-namespace FindMyHobbyApi.Domain;
+using FindMyHobbyApi.Domain.Models;
+
+namespace FindMyHobbyApi.Domain.Handlers.Queries;
 
 public sealed class GetHobbyQueryHandler : IGetHobbyQueryHandler
 {

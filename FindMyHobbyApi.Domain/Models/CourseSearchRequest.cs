@@ -1,6 +1,6 @@
-namespace FindMyHobbyApi.Domain;
+namespace FindMyHobbyApi.Domain.Models;
 
-public sealed record CourseSearchQuery(
+public sealed record CourseSearchRequest(
     string HobbyDescription,
     string Postcode,
     int MaximumDistanceMiles);

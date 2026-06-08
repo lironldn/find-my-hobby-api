@@ -1,4 +1,6 @@
 using FindMyHobbyApi.Domain;
+using FindMyHobbyApi.Domain.Models;
+using FindMyHobbyApi.Domain.Services;
 
 namespace FindMyHobbyApi;
 

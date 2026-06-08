@@ -1,7 +1,7 @@
 using System.Net;
+using FindMyHobbyApi.Domain.Models;
+using FindMyHobbyApi.Domain.Services;
 using FluentAssertions;
-using FindMyHobbyApi;
-using FindMyHobbyApi.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using NSubstitute;
