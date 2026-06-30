@@ -21,9 +21,81 @@ env:
   K8S_NAMESPACE: default
 
 jobs:
+  check-infra:
+    name: Check Azure infrastructure
+    runs-on: ubuntu-latest
+    environment: aks
+    outputs:
+      exists: ${{ steps.check.outputs.exists }}
+
+    steps:
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Check resource group
+        id: check
+        shell: bash
+        run: |
+          if az group exists --name ${{ vars.AKS_RESOURCE_GROUP }} | grep -q true; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Resource group ${{ vars.AKS_RESOURCE_GROUP }} does not exist. Publishing and deployment steps will be skipped."
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  build-and-test:
+    name: Build and run unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Run unit tests
+        run: |
+          dotnet test FindMyHobbyApi.Domain.UnitTests/FindMyHobbyApi.Domain.UnitTests.csproj \
+            --configuration Release \
+            --logger "console;verbosity=minimal"
+
+          dotnet test FindMyHobbyApi.UnitTests/FindMyHobbyApi.UnitTests.csproj \
+            --configuration Release \
+            --logger "console;verbosity=minimal"
+
+  build-web:
+    name: Build website
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        working-directory: FindMyHobbyWeb
+        run: npm ci
+
+      - name: Build website
+        working-directory: FindMyHobbyWeb
+        run: npm run build
+
   build-and-publish:
     name: Build and publish Docker image
     runs-on: ubuntu-latest
+    needs: [build-and-test, check-infra]
+    if: needs.check-infra.outputs.exists == 'true'
 
     steps:
       - name: Checkout repository
@@ -64,6 +136,8 @@ jobs:
   build-and-publish-web:
     name: Build and publish website image
     runs-on: ubuntu-latest
+    needs: [build-web, check-infra]
+    if: needs.check-infra.outputs.exists == 'true'
 
     steps:
       - name: Checkout repository
