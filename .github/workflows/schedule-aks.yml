@@ -64,6 +64,14 @@ jobs:
         id: aks-status
         shell: bash
         run: |
+          if ! az group exists --name ${{ vars.AKS_RESOURCE_GROUP }} | grep -q true; then
+            echo "Resource group ${{ vars.AKS_RESOURCE_GROUP }} does not exist. Skipping."
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "exists=true" >> "$GITHUB_OUTPUT"
+
           POWER_STATE=$(az aks show \
             --resource-group ${{ vars.AKS_RESOURCE_GROUP }} \
             --name ${{ vars.AKS_CLUSTER_NAME }} \
@@ -83,31 +91,31 @@ jobs:
           echo "AKS provisioning state: $PROVISIONING_STATE"
 
       - name: Stop AKS
-        if: steps.decide.outputs.action == 'stop' && steps.aks-status.outputs.power_state == 'Running'
+        if: steps.aks-status.outputs.exists == 'true' && steps.decide.outputs.action == 'stop' && steps.aks-status.outputs.power_state == 'Running'
         run: |
           az aks stop \
             --resource-group ${{ vars.AKS_RESOURCE_GROUP }} \
             --name ${{ vars.AKS_CLUSTER_NAME }}
 
       - name: Skip stop because AKS is already stopped
-        if: steps.decide.outputs.action == 'stop' && steps.aks-status.outputs.power_state != 'Running'
+        if: steps.aks-status.outputs.exists == 'true' && steps.decide.outputs.action == 'stop' && steps.aks-status.outputs.power_state != 'Running'
         run: |
           echo "AKS is not running. Current state: ${{ steps.aks-status.outputs.power_state }}. Nothing to stop."
 
       - name: Start AKS
-        if: steps.decide.outputs.action == 'start' && steps.aks-status.outputs.power_state != 'Running'
+        if: steps.aks-status.outputs.exists == 'true' && steps.decide.outputs.action == 'start' && steps.aks-status.outputs.power_state != 'Running'
         run: |
           az aks start \
             --resource-group ${{ vars.AKS_RESOURCE_GROUP }} \
             --name ${{ vars.AKS_CLUSTER_NAME }}
 
       - name: Skip start because AKS is already running
-        if: steps.decide.outputs.action == 'start' && steps.aks-status.outputs.power_state == 'Running'
+        if: steps.aks-status.outputs.exists == 'true' && steps.decide.outputs.action == 'start' && steps.aks-status.outputs.power_state == 'Running'
         run: |
           echo "AKS is already running. Nothing to start."
 
       - name: Show AKS status
-        if: steps.decide.outputs.action == 'status'
+        if: steps.aks-status.outputs.exists == 'true' && steps.decide.outputs.action == 'status'
         run: |
           az aks show \
             --resource-group ${{ vars.AKS_RESOURCE_GROUP }} \
